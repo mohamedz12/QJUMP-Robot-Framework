@@ -1,0 +1,247 @@
+*** Settings ***
+Documentation  A resource file containing the application Test Cases
+Library		Selenium2Library
+Resource   /Users/tatralab/Documents/AUTOMATION_WORKSPACE/RobotFramework/src/Shated TCs/Open Stadium Management Shared Steps.txt
+
+*** Test Cases ***
+TC1: Login failed
+     [Documentation]   Check login failed with insuccessful credentials
+     Open Browser  http://testapps.in/qjump/admin/  chrome
+     Input Text    email   admin@qjump.com
+	 Input Text    password   654321
+	 Click Button   Login
+	 Page Should Contain   Invalid Username or Password   INFO
+     Close Browser
+#                   --------------------------------------------------------------------------
+TC2: Login Sucessfully
+     [Documentation]   Check login done successfully with successful credentials
+     Open Browser  http://testapps.in/qjump/admin/  chrome
+	 Input Text    email   admin@qjump.com
+	 Input Text    password   123456
+	 Select Checkbox   remember
+	 Click Button   Login
+	 Element Text Should Be   xpath=(//*[@id="title-screen"])[2]   Dashboard  
+	 Close Browser
+#                    --------------------------------------------------------------------------	 
+TC3: Logout
+     [Documentation]   Check logout done successfully
+     Open Browser  http://testapps.in/qjump/admin/  chrome
+	 Input Text    email   admin@qjump.com
+	 Input Text    password   123456
+	 Click Button   Login
+	 Click Link   الخروج
+     Close Browser
+#                    --------------------------------------------------------------------------
+TC4: Adding new Stadium
+     [Documentation]   Check adding a new stadium
+     Shared Steps : Open Stadium Management
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[2]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[2]/a
+     Input Text   name_ar   ستاد ريبوت
+     Input Text   name_en   RobotFramework Stadium
+     Input Text   city_ar   القاهرة
+     Input Text   city_en   Cairo
+     Input Text   addr_ar   مدينة نصر
+     Input Text   addr_en   Nasr city
+     Choose File   uploadphoto   /Users/tatralab/Downloads/Stadium.jpeg
+     Click Button   btn_submit
+     Input Text   txt_data   ستاد ريبوت
+     Sleep   5
+     Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   ستاد ريبوت
+     Close Browser
+#                    --------------------------------------------------------------------------
+TC5: Editing created stadium
+     [Documentation]   Check editing created stadium
+     Shared Steps : Open Stadium Management                         
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a
+     Input Text   txt_data   ستاد ريبوت
+     Sleep   5
+     Click Image   images/user_edit.png
+     Clear Element Text    name_ar
+     Input Text   name_ar  ستاد ريبوت معدل
+     Click Button   btn_submit
+     Input Text   txt_data   ستاد ريبوت معدل
+     Sleep   5
+     Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   ستاد ريبوت معدل
+     Close Browser
+#                    --------------------------------------------------------------------------
+TC6: Deleting created stadium
+     [Documentation]   Check deleting created stadium
+     Shared Steps : Open Stadium Management                         
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a
+     Input Text   txt_data   ستاد ريبوت معدل
+     Sleep   5 
+     Choose Ok On Next Confirmation
+     Click Image   images/trash.png
+     Confirm Action
+     Input Text   txt_data   ستاد ريبوت معدل
+     Sleep   5
+     Element Text Should Be   no_data_css   No Records Found
+     Close Browser
+#                    --------------------------------------------------------------------------
+TC7: Adding new restaurant
+     [Documentation]   Check adding new restaurant
+     Shared Steps : Open Restaurant Management
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[3]/ul/li[2]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[3]/ul/li[2]/a
+     Input Text   name_ar   مطعم ريبوت
+     Input Text   name_en   Robot Restaurant
+     Input Text   description_ar   مطعم ريبوت يقدم اشهي الماكولات
+     Input Text   description_en   Robot Restaurant presents the best meals
+     Choose File   uploadphoto   /Users/tatralab/Downloads/Restaurant.jpeg
+     Input Text   txt_username   m.zahran@softcare.io
+     Input Text   txt_password   123456
+     Input Text   txt_c_password   123456
+     Input Text   txt_contact   11112233233432
+     Click Button   btn_submit
+     Input Text   txt_data   مطعم ريبوت
+     sleep   5
+     Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   مطعم ريبوت
+     Close Browser
+#                    --------------------------------------------------------------------------
+TC8: Editing created restaurant                   
+     [Documentation]   Check editing created restaurant
+     Shared Steps : Open Restaurant Management                         
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[3]/ul/li[1]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[3]/ul/li[1]/a
+     Input Text   txt_data   مطعم ريبوت
+     Sleep   5
+     Click Image   images/user_edit.png
+     Clear Element Text    name_ar
+     Input Text   name_ar  مطعم ريبوت معدل
+     Click Button   btn_submit
+     Input Text   txt_data   مطعم ريبوت معدل
+     Sleep   5
+     Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   مطعم ريبوت معدل
+     Close Browser
+#                   --------------------------------------------------------------------------
+TC9 : Deleting created restaurant
+     [Documentation]   Check deleting created restaurant
+     Shared Steps : Open Restaurant Management                          
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[3]/ul/li[1]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[3]/ul/li[1]/a
+     Input Text   txt_data   مطعم ريبوت معدل
+     Sleep   5
+     Choose Ok On Next Confirmation
+     Click Image   images/trash.png
+     Confirm Action
+     Input Text   txt_data   مطعم ريبوت معدل
+     Sleep   5
+     Element Text Should Be   no_data_css   No Records Found
+     Close Browser
+#                   --------------------------------------------------------------------------
+TC10 : Adding new runner
+     [Documentation]   Check adding new runner
+     Shared Steps : Open Runner Management
+     Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[4]/ul/li[2]/a   10
+     Click Link   xpath=.//ul[@id='side-menu']/li[4]/ul/li[2]/a
+     Input Text   name_ar   موصل طلبات
+     Input Text   name_en   Robot Runner
+     Choose File   uploadphoto   /Users/tatralab/Downloads/My Image.jpg
+     Input Text   txt_username   m.zahran@softcare.io
+     Input Text   txt_password   123456
+     Input Text   txt_c_password   123456
+     Input Text   txt_contact   11112233233432 
+     Click Button   btn_submit
+     Input Text   txt_data   موصل طلبات
+     sleep   5
+     Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   موصل طلبات
+     Close Browser                   
+#                   --------------------------------------------------------------------------
+TC11 : Editing created runner
+    [Documentation]   Check editing created runner
+    Shared Steps : Open Runner Management
+    Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[4]/ul/li[1]/a   10
+    Click Link   xpath=.//ul[@id='side-menu']/li[4]/ul/li[1]/a
+    Input Text   txt_data  موصل طلبات
+    Sleep   5
+    Click Image   images/user_edit.png
+    Clear Element Text    name_ar
+    Input Text   name_ar  موصل طلبات معدل
+    Click Button   btn_submit
+    Input Text   txt_data   موصل طلبات معدل
+    Sleep   5
+    Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   موصل طلبات معدل
+    Close Browser
+#                   --------------------------------------------------------------------------
+TC12 : Deleting created runner
+    [Documentation]   Check deleting created runner
+    Shared Steps : Open Runner Management                        
+    Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[4]/ul/li[1]/a   10
+    Click Link   xpath=.//ul[@id='side-menu']/li[4]/ul/li[1]/a
+    Input Text   txt_data   موصل طلبات معدل
+    Sleep   5
+    Choose Ok On Next Confirmation
+    Click Image   images/trash.png
+    Confirm Action
+    Input Text   txt_data   موصل طلبات معدل
+    Sleep   5
+    Element Text Should Be   no_data_css   No Records Found
+    Close Browser
+#                   --------------------------------------------------------------------------
+TC13: Adding new product
+    [Documentation]   Check adding new product
+    Shared Steps : Open Product Management
+    Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[2]/a   10
+    Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[2]/a
+    Input Text   name_ar   منتج ريبوت
+    Input Text   name_en   Robot Product
+    Input Text   description_ar   فراخ علي الفحم الحار
+    Input Text   description_en   Hot coal chicken
+    Choose File   uploadphoto   /Users/tatralab/Downloads/coal chicken.jpeg
+    Select From List   txt_cat   Food
+    Input Text   txt_price   15
+    Click Button   btn_submit
+    Input Text   txt_data   منتج ريبوت
+    sleep   5
+    Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   منتج ريبوت
+    Close Browser
+#                   --------------------------------------------------------------------------
+TC14 : Editing created product
+    [Documentation]   Check editing created product
+    Shared Steps : Open Product Management
+    Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a   10
+    Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a
+    Input Text   txt_data  منتج ريبوت
+    Sleep   5
+    Click Image   images/user_edit.png
+    Clear Element Text    name_ar
+    Input Text   name_ar  منتج ريبوت معدل
+    Click Button   btn_submit
+    Input Text   txt_data   منتج ريبوت معدل
+    Sleep   5
+    Element Text Should Be   xpath=.//table[@id='dataTables-example2']/tbody/tr[2]/td[3]/samp   منتج ريبوت معدل
+    Close Browser             
+#                    --------------------------------------------------------------------------
+TC15 : Deleting created product
+    [Documentation]   Check deleting created product
+    Shared Steps : Open Product Management                        
+    Wait Until Element Is Visible   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a   10
+    Click Link   xpath=.//ul[@id='side-menu']/li[2]/ul/li[1]/a
+    Input Text   txt_data   منتج ريبوت معدل
+    Sleep   5
+    Choose Ok On Next Confirmation
+    Click Image   images/trash.png
+    Confirm Action
+    Input Text   txt_data   منتج ريبوت معدل
+    Sleep   5
+    Element Text Should Be   no_data_css   No Records Found
+    Close Browser                   
+                   
+                   
+                   
+                   
+                   
+                   
+
+                   
+
+
+
+
+
+
+
+     

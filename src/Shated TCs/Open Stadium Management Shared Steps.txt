@@ -1,0 +1,47 @@
+*** Settings ***
+Documentation   This is a document for shared steps .
+Library   Selenium2Library
+
+*** Variables ***
+${URL_Admin}   http://testapps.in/qjump/admin/
+${URL_Restaurant}   http://testapps.in/qjump/restaurant/
+${Browser}   chrome
+${username_Admin}   admin@qjump.com
+${username_Restaurant}   m.zahran@softcare.io
+${password}   123456
+  
+
+*** Keywords ***
+Shared Steps : Open Stadium Management
+   Open Browser   ${URL_Admin}   chrome
+   Input Text   email   ${username_Admin}
+   Input Text   password   ${password}
+   Click Button   Login
+   Click Link   Stadium Management
+#                   --------------------------------------------------------------------------
+Shared Steps : Open Restaurant Management
+    Open Browser   ${URL_Admin}   chrome
+    Select Window   Title=QJump Admin panel 
+    Input Text   email   ${username_Admin}
+    Input Text   password   ${password}      
+    Click Button   Login
+    Click Link   Restaurant Management    
+#                  --------------------------------------------------------------------------
+Shared Steps : Open Runner Management
+    Open Browser   ${URL_Admin}   chrome
+    Select Window   Title=QJump Admin panel
+    Input Text   email   ${username_Admin}
+    Input Text   password   ${password}      
+    Click Button   Login
+    Click Link   Runner Management
+#                 --------------------------------------------------------------------------
+Shared Steps : Open Product Management
+    Open Browser   ${URL_Restaurant}   chrome
+    Select Window   Title=QJump Restaurant panel
+    Input Text   email   ${username_Restaurant}
+    Input Text   password   ${password}      
+    Click Button   Login
+    Click Link   Product Management
+
+
+                            
